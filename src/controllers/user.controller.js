@@ -47,7 +47,6 @@ export const getSuggestedUsers = async (req, res) => {
     const loggedInUserId = req.user._id;
     const users = await User.find({ _id: { $ne: loggedInUserId } })
       .select("-password")
-      .limit(10);
 
     res.status(200).json(users);
   } catch (error) {
