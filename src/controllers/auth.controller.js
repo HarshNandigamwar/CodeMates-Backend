@@ -64,7 +64,7 @@ export const signup = async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 din ki expiry
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
       // Final Response
@@ -304,7 +304,15 @@ export const updateProfile = async (req, res) => {
 
 // logout
 export const logout = (req, res) => {
-  res.cookie("jwt_token", "", { expires: new Date(0), httpOnly: true });
-  res.status(200).json({ message: "Logged out successfully" });
+  res.cookie("jwt_token", "", { 
+    httpOnly: true,
+    secure: true, 
+    sameSite: "none",
+    expires: new Date(0), 
+  });
   console.log("Logged out successfully");
+  return res.status(200).json({ 
+    success: true, 
+    message: "Logged out successfully" 
+  });
 };
