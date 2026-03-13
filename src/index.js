@@ -1,5 +1,11 @@
-import express from "express";
 import dotenv from "dotenv";
+import dns from "dns";
+if (process.env.NODE_ENV === "development") {
+  dns.setServers(["8.8.8.8", "8.8.4.4"]);
+  dns.setDefaultResultOrder("ipv4first");
+}
+
+import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
@@ -10,12 +16,11 @@ import messageRoutes from "./routes/message.routes.js";
 
 dotenv.config();
 
-// Middleware
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(cookieParser());

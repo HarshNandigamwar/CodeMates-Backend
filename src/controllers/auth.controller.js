@@ -117,7 +117,7 @@ export const login = async (req, res) => {
         name: user.name,
         username: user.username,
         email: user.email,
-        message: "Login successful",
+        message: `${user.name}, Login successful `,
       });
       console.log(user.name, "Login successful");
     } else {
@@ -152,7 +152,7 @@ export const updateProfilePic = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       { profilePic: result.secure_url },
-      { new: true }
+      { new: true },
     ).select("-password");
 
     res.status(200).json(updatedUser);
